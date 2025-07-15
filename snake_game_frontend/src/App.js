@@ -88,16 +88,14 @@ function App() {
       setSnake(prevSnake => {
         if (!running || gameOver) return prevSnake;
         const head = prevSnake[0];
-        const next = { x: head.x + direction.x, y: head.y + direction.y };
+        // Wrap-around logic for the next position
+        let next = { 
+          x: (head.x + direction.x + BOARD_SIZE) % BOARD_SIZE, 
+          y: (head.y + direction.y + BOARD_SIZE) % BOARD_SIZE 
+        };
 
-        // Check game over (out of bounds or self-collision)
-        if (
-          next.x < 0 ||
-          next.y < 0 ||
-          next.x >= BOARD_SIZE ||
-          next.y >= BOARD_SIZE ||
-          prevSnake.some(seg => areEqual(seg, next))
-        ) {
+        // Check self-collision only (walls now wrap)
+        if (prevSnake.some(seg => areEqual(seg, next))) {
           setGameOver(true);
           setRunning(false);
           return prevSnake;
