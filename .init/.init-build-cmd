@@ -1,4 +1,0 @@
-{
-    "command": "npm install && npx tsc --noEmit && npm test -- --ci",
-    "working_directory": "/home/kavia/workspace/code-generation/snake-game-web-platform-9fc2f41b/snake_game_frontend"
-}
